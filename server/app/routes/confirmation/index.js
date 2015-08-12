@@ -4,14 +4,14 @@ var mandrill = require('mandrill-api/mandrill');
 var mandrill_client = new mandrill.Mandrill('9wkzBReoZI_aL6h2c-asFQ');
 module.exports = router;
 
-router.get('/code',function (req, res, next){
+router.put('/code',function (req, res, next){
 	var code = Math.floor(Math.random() * (9999 - 1000)) + 1000;
 	console.log("code",code)
 	var message = {
         "subject": "Your confirmation code is "+String(code),
         "from_email": "gavinyoung1994@gmail.com",
         "to": [{
-                "email": "gyoung12@simons-rock.edu",
+                "email": req.body.email+"@simons-rock.edu",
             }],
         "important": false,
         "track_opens": true,    

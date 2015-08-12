@@ -1,6 +1,6 @@
 app.config(function($stateProvider) {
 	$stateProvider.state('generalChat', {
-		url: '/chat',
+		url: '/api/chat',
 		templateUrl: 'js/general_chat/general_chat.html',
 		controller: 'generalChatCtrl'
 	});

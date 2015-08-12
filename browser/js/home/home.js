@@ -7,8 +7,9 @@ app.config(function($stateProvider) {
 });
 
 app.controller('homeCtrl', function($scope, $state, $http, $rootScope){
+	$scope.email = "";
 	$scope.getCode = function(){
-		$http.get('/api/confirmation/code')
+		$http.put('/api/confirmation/code',{email: $scope.email})
 		.then(function(res){
 			if(res){
 				$rootScope.code = res.data.code;
