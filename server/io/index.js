@@ -11,8 +11,8 @@ module.exports = function (server) {
     
 	io.on('connection', function(socket){
 		console.log("a user is connected");
-		socket.on('message',function(socket){
-			console.log(socket);
+		socket.on('message',function(mssg){
+			socket.broadcast.emit('eveyone', mssg);
 		})
 	});
     

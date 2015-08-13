@@ -9,6 +9,9 @@ app.config(function($stateProvider) {
 app.controller('generalChatCtrl', function($scope,mySocket){
 	$scope.message = "";
 	$scope.mssgs = [];
+	mySocket.on('everyone', function(mssg){
+		$scope.mssgs.push(mssg);
+	})
 	$scope.submit = function(){
 		mySocket.emit('message', {
 			message: $scope.message,
