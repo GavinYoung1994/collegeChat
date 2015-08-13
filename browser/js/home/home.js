@@ -13,6 +13,7 @@ app.controller('homeCtrl', function($scope, $state, $http, $rootScope){
 		.then(function(res){
 			if(res){
 				$rootScope.code = res.data.code;
+				$rootScope.animal = res.data.animal;
 				$state.go('confirmation');
 			}
 		})

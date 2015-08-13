@@ -6,7 +6,7 @@ app.config(function($stateProvider) {
 	});
 });
 
-app.controller('generalChatCtrl', function($scope,mySocket){
+app.controller('generalChatCtrl', function($scope,mySocket,$rootScope){
 	$scope.message = "";
 	$scope.mssgs = [];
 	mySocket.on('everyone', function(mssg){
@@ -17,11 +17,13 @@ app.controller('generalChatCtrl', function($scope,mySocket){
     	localTime = moment(localTime).format('YYYY-MM-DD HH:mm:ss');
 		mySocket.emit('message', {
 			message: $scope.message,
-			time: localTime
+			time: localTime,
+			animal: $rootScope.animal+String($rootScope.code)
 		});
 		$scope.mssgs.push({
 			message: $scope.message,
-			time: localTime
+			time: localTime,
+			animal: "You"
 		});
 		$scope.message = "";
 	}
