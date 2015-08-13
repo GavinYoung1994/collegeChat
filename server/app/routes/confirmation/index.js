@@ -23,7 +23,7 @@ router.put('/code',function (req, res, next){
     var ip_pool = "Main Pool";
     mandrill_client.messages.send({"message": message, "async": async, "ip_pool": ip_pool}, function(result) {
         res.json({
-        	code: code
+        	code: 1111
         });
     }, function(e) {
         // Mandrill returns the error as an object with name and message keys

@@ -1,0 +1,28 @@
+.chatInput {
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+}
+
+.chatInput input {
+	width: 90%;
+	border: 1px solid;
+	padding: 0.5%;
+}
+
+.chatInput button {
+	width: 10%;
+	background: cornflowerblue;
+	border: 1px solid;
+	padding: 0.5%;
+}
+
+#messages {
+	padding-bottom: 45px;
+	overflow-y: scroll;
+	height: 100vh;
+}
+
+#messages li:nth-child(odd) { 
+	background: #eee; 
+}
