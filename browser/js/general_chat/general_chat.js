@@ -8,7 +8,7 @@ app.config(function($stateProvider) {
 	});
 });
 
-app.controller('generalChatCtrl', function($scope,mySocket,$rootScope){
+app.controller('generalChatCtrl', function($scope,mySocket,$rootScope,$state){
 	$scope.message = "";
 	$scope.mssgs = [];
 	mySocket.on('everyone', function(mssg){
@@ -17,6 +17,12 @@ app.controller('generalChatCtrl', function($scope,mySocket,$rootScope){
 			document.title = "New Message!";
 		}
 	})
+
+	$scope.private_chat = function(){
+		$state.go("privateChat");
+		mySocket.emit('joinPrivate',$rootScope.animal);
+	}
+
 	$scope.submit = function(){
 		var localTime  = moment.utc(moment.utc().format('YYYY-MM-DD HH:mm:ss')).toDate();
     	localTime = moment(localTime).format('YYYY-MM-DD HH:mm:ss');
