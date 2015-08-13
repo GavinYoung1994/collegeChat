@@ -13,13 +13,15 @@ app.controller('generalChatCtrl', function($scope,mySocket){
 		$scope.mssgs.push(mssg);
 	})
 	$scope.submit = function(){
+		var localTime  = moment.utc(moment.utc().format('YYYY-MM-DD HH:mm:ss')).toDate();
+    	localTime = moment(localTime).format('YYYY-MM-DD HH:mm:ss');
 		mySocket.emit('message', {
 			message: $scope.message,
-			time: new Date()
+			time: localTime
 		});
 		$scope.mssgs.push({
 			message: $scope.message,
-			time: new Date()
+			time: localTime
 		});
 		$scope.message = "";
 	}
