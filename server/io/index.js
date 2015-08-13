@@ -10,9 +10,8 @@ module.exports = function (server) {
 
     
 	io.on('connection', function(socket){
-		console.log("a user is connected");
 		socket.on('message',function(mssg){
-			socket.broadcast.emit('eveyone', mssg);
+			socket.broadcast.emit('everyone', mssg);
 		})
 	});
     
