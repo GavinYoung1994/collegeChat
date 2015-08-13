@@ -1,3 +1,5 @@
+var onTab = true;
+
 app.config(function($stateProvider) {
 	$stateProvider.state('generalChat', {
 		url: '/api/chat',
@@ -11,6 +13,9 @@ app.controller('generalChatCtrl', function($scope,mySocket,$rootScope){
 	$scope.mssgs = [];
 	mySocket.on('everyone', function(mssg){
 		$scope.mssgs.push(mssg);
+		if(!onTab){
+			document.title = "New Message!";
+		}
 	})
 	$scope.submit = function(){
 		var localTime  = moment.utc(moment.utc().format('YYYY-MM-DD HH:mm:ss')).toDate();
@@ -26,5 +31,12 @@ app.controller('generalChatCtrl', function($scope,mySocket,$rootScope){
 			animal: "You"
 		});
 		$scope.message = "";
+	}
+	window.onfocus = function () { 
+	  onTab = true;
+	  document.title="College Chat";
+	}; 
+	window.onblur = function(){
+		onTab = false
 	}
 })
