@@ -9,6 +9,7 @@ app.config(function($stateProvider) {
 app.controller('privateChatCtrl',function($scope,$rootScope, mySocket, $state){
 	$scope.message = "";
 	$scope.mssgs = [];
+	$scope.chatting = false;
 	window.onfocus = function () { 
 	  onTab = true;
 	  document.title="College Chat";
@@ -19,11 +20,13 @@ app.controller('privateChatCtrl',function($scope,$rootScope, mySocket, $state){
 
 	$scope.public_chat = function(){
 		$state.go("generalChat");
+		mySocket.emit('left', $scope.room);
 	}
 
 	mySocket.on('found', function(room) {
 	    $scope.room = room;
 	    alert("You have found a chat partner");
+	    $scope.chatting = true;
   	});
 
   	mySocket.on('private response', function(mssg){
@@ -32,6 +35,18 @@ app.controller('privateChatCtrl',function($scope,$rootScope, mySocket, $state){
 			document.title = "New Message!";
 		}
   	})
+
+  	mySocket.on('leave', function() {
+  		alert("The other person left, looking for a new chat partner");
+  		$scope.chatting = false;
+	    mySocket.emit('joinPrivate');
+	  });
+
+  	$scope.another = function(){
+  		mySocket.emit('left', $scope.room);
+  		$scope.chatting = false;
+  		mySocket.emit('joinPrivate');
+  	}
 
 	$scope.submit = function(){
 		var localTime  = moment.utc(moment.utc().format('YYYY-MM-DD HH:mm:ss')).toDate();

@@ -5,6 +5,7 @@
   </div>
 </div>
 <button id="private_chat" ng-click="public_chat()">Public Chat</button>
+<button id="private_chat2" ng-show="chatting" ng-click="another()">Another Person</button>
 <form class="chatInput">
   <input id="m" ng-model="message"/><button ng-click="submit()">Send</button>
 </form>

@@ -20,7 +20,7 @@ app.controller('generalChatCtrl', function($scope,mySocket,$rootScope,$state){
 
 	$scope.private_chat = function(){
 		$state.go("privateChat");
-		mySocket.emit('joinPrivate',$rootScope.animal);
+		mySocket.emit('joinPrivate');
 	}
 
 	$scope.submit = function(){

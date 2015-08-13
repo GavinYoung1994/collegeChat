@@ -29,10 +29,10 @@ module.exports = function (server) {
 			client.broadcast.emit('everyone', mssg);
 		})
 
-		client.on('joinPrivate', function(animal){
-			waiting[animal] = client;
+		client.on('joinPrivate', function(){
+			waiting[client.id] = client;
 			if(Object.keys(waiting).length>1){
-				delete waiting[animal];
+				delete waiting[client.id];
 				var user2 = waiting[Object.keys(waiting)[0]];
 				delete waiting[Object.keys(waiting)[0]];
 				var newRoom = new Room(client, user2);
@@ -48,9 +48,29 @@ module.exports = function (server) {
 		})
 
 		client.on('private message', function(room, mssg){
-			console.log(room, client.id);
 			client.broadcast.to(room).emit("private response", mssg);
 		})
+
+		client.on('left', function(room){
+			io.sockets.in(client.room).emit('leave');
+			client.leave(client.room);
+			delete rooms[client.room];
+			delete waiting[client.id];
+		})
+
+		client.on('disconnect', function() {
+	      //delete from room
+	      if (client.room) {
+	        io.sockets.in(client.room).emit('leave');
+	        client.leave(client.room);
+	        delete rooms[client.room];
+	      }
+	      //delete from waiting Room
+	      delete waiting[client.id];
+
+	      //delet from connected client
+	      delete clients[client.id];
+	    });
 	});
     
     return io;
