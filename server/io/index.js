@@ -52,7 +52,7 @@ module.exports = function (server) {
 		})
 
 		client.on('left', function(room){
-			io.sockets.in(client.room).emit('leave');
+			client.broadcast.to(room).emit('leave');
 			client.leave(client.room);
 			delete rooms[client.room];
 			delete waiting[client.id];
