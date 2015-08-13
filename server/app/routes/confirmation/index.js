@@ -11,7 +11,7 @@ router.put('/code',function (req, res, next){
 	console.log("code",code)
 	var message = {
         "subject": "Your confirmation code is "+String(code),
-        "from_email": "gavinyoung1994@gmail.com",
+        "from_email": "no-reply-server@gmail.com",
         "to": [{
                 "email": req.body.email+"@simons-rock.edu",
             }],
